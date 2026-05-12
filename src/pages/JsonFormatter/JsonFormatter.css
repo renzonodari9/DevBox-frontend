@@ -1,0 +1,133 @@
+.json-layout {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.json-input-card,
+.json-output-card {
+  background: var(--bg-secondary);
+}
+
+.json-textarea {
+  width: 100%;
+  min-height: 400px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  padding: 16px;
+  resize: vertical;
+  outline: none;
+  transition: var(--transition);
+  line-height: 1.6;
+}
+
+.json-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.json-textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.json-actions-center {
+  display: flex;
+  align-items: center;
+  padding-top: 200px;
+}
+
+.json-output {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  min-height: 400px;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.json-line {
+  display: flex;
+  gap: 12px;
+}
+
+.json-line-number {
+  color: var(--text-muted);
+  min-width: 30px;
+  text-align: right;
+  user-select: none;
+}
+
+.json-content {
+  flex: 1;
+}
+
+.json-key { color: var(--vscode-key); }
+.json-string { color: var(--vscode-string); }
+.json-number { color: var(--vscode-number); }
+.json-boolean { color: var(--vscode-boolean); }
+.json-null { color: var(--vscode-null); }
+
+.validation-status {
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.validation-status.valid {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.validation-status.invalid {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--error);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+}
+
+.loading-placeholder,
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 1024px) {
+  .json-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .json-actions-center {
+    padding-top: 0;
+    justify-content: center;
+  }
+}
