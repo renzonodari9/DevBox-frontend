@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import Button from '../../components/common/Button/Button';
 import Card from '../../components/common/Card/Card';
+import { renderJson } from '../../utils/syntaxHighlight';
 import './JsonFormatter.css';
 
 const JsonFormatter = () => {
@@ -79,35 +80,7 @@ const JsonFormatter = () => {
     setOutput('');
     setError('');
     setIsValid(null);
-  };
-
-  const renderJsonWithColors = (json) => {
-    if (!json) return '';
-    return json.split('\n').map((line, i) => (
-      <div key={i} className="json-line">
-        <span className="json-line-number">{i + 1}</span>
-        <span className="json-content" dangerouslySetInnerHTML={{ __html: syntaxHighlight(line) }} />
-      </div>
-    ));
-  };
-
-  const syntaxHighlight = (json) => {
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(
-      /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-      (match) => {
-        let cls = 'json-number';
-        if (/^"/.test(match)) {
-          cls = /:$/.test(match) ? 'json-key' : 'json-string';
-        } else if (/true|false/.test(match)) {
-          cls = 'json-boolean';
-        } else if (/null/.test(match)) {
-          cls = 'json-null';
-        }
-        return `<span class="${cls}">${match}</span>`;
-      }
-    );
-  };
+};
 
   return (
     <motion.div
@@ -168,7 +141,7 @@ const JsonFormatter = () => {
             {loading ? (
               <div className="loading-placeholder">Formateando...</div>
             ) : output ? (
-              <pre className="json-output">{renderJsonWithColors(output)}</pre>
+              <pre className="json-output">{renderJson(output)}</pre>
             ) : (
               <div className="empty-state">El JSON formateado aparecerá aquí</div>
             )}

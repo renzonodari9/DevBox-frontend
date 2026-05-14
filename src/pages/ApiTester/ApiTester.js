@@ -4,6 +4,7 @@ import axios from 'axios';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
 import Loading from '../../components/common/Loading/Loading';
+import { renderJson } from '../../utils/syntaxHighlight';
 import './ApiTester.css';
 
 const ApiTester = () => {
@@ -80,35 +81,7 @@ const ApiTester = () => {
     if (status >= 300 && status < 400) return 'status-redirect';
     if (status >= 400 && status < 500) return 'status-client-error';
     return 'status-server-error';
-  };
-
-  const renderJson = (data) => {
-    const json = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
-    return json.split('\n').map((line, i) => (
-      <div key={i} className="json-line">
-        <span className="json-line-number">{i + 1}</span>
-        <span dangerouslySetInnerHTML={{ __html: syntaxHighlight(line) }} />
-      </div>
-    ));
-  };
-
-  const syntaxHighlight = (json) => {
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(
-      /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-      (match) => {
-        let cls = 'json-number';
-        if (/^"/.test(match)) {
-          cls = /:$/.test(match) ? 'json-key' : 'json-string';
-        } else if (/true|false/.test(match)) {
-          cls = 'json-boolean';
-        } else if (/null/.test(match)) {
-          cls = 'json-null';
-        }
-        return `<span class="${cls}">${match}</span>`;
-      }
-    );
-  };
+};
 
   return (
     <motion.div

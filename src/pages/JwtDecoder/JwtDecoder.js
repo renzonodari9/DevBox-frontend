@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
+import { renderJson } from '../../utils/syntaxHighlight';
 import './JwtDecoder.css';
 
 const JwtDecoder = () => {
@@ -22,7 +23,7 @@ const JwtDecoder = () => {
     setDecoded(null);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/jwt/decode', {
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/jwt/decode`, {
         token
       });
 
@@ -50,34 +51,7 @@ const JwtDecoder = () => {
     setToken('');
     setDecoded(null);
     setError('');
-  };
-
-  const renderJson = (data) => {
-    return JSON.stringify(data, null, 2).split('\n').map((line, i) => (
-      <div key={i} className="json-line">
-        <span className="json-line-number">{i + 1}</span>
-        <span dangerouslySetInnerHTML={{ __html: syntaxHighlight(line) }} />
-      </div>
-    ));
-  };
-
-  const syntaxHighlight = (json) => {
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(
-      /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-      (match) => {
-        let cls = 'json-number';
-        if (/^"/.test(match)) {
-          cls = /:$/.test(match) ? 'json-key' : 'json-string';
-        } else if (/true|false/.test(match)) {
-          cls = 'json-boolean';
-        } else if (/null/.test(match)) {
-          cls = 'json-null';
-        }
-        return `<span class="${cls}">${match}</span>`;
-      }
-    );
-  };
+};
 
   return (
     <motion.div

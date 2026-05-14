@@ -11,6 +11,7 @@ import ApiTester from './pages/ApiTester/ApiTester';
 import './App.css';
 
 function App() {
+  const [collapsed, setCollapsed] = React.useState(false);
   const [toast, setToast] = React.useState({ show: false, message: '', type: 'info' });
 
   const showToast = (message, type = 'info') => {
@@ -23,8 +24,8 @@ function App() {
 
   return (
     <Router>
-      <div className="app-container">
-        <Sidebar />
+      <div className={`app-container ${collapsed ? 'sidebar-collapsed' : ''}`}>
+        <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(!collapsed)} />
         <main className="main-content">
           <AnimatePresence mode="wait">
             <Routes>

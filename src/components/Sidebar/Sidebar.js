@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Sidebar.css';
@@ -56,13 +56,13 @@ const menuItems = [
   }
 ];
 
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+const Sidebar = ({ collapsed, onToggle }) => {
   const location = useLocation();
 
   return (
     <motion.aside
       className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}
+      initial={{ width: collapsed ? 72 : 260 }}
       animate={{ width: collapsed ? 72 : 260 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
@@ -76,7 +76,7 @@ const Sidebar = () => {
         </motion.div>
         <button
           className="sidebar-toggle"
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={onToggle}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <line x1="3" y1="12" x2="21" y2="12"/>
