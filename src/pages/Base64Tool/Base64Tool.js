@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import Card from '../../components/common/Card/Card';
 import Button from '../../components/common/Button/Button';
-import { renderJson } from '../../utils/syntaxHighlight';
 import './Base64Tool.css';
 
 const Base64Tool = () => {

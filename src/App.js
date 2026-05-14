@@ -14,10 +14,6 @@ function App() {
   const [collapsed, setCollapsed] = React.useState(false);
   const [toast, setToast] = React.useState({ show: false, message: '', type: 'info' });
 
-  const showToast = (message, type = 'info') => {
-    setToast({ show: true, message, type });
-  };
-
   const hideToast = () => {
     setToast({ ...toast, show: false });
   };
